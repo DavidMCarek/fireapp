@@ -1,14 +1,14 @@
 <div>
-  <input type="text" [(ngModel)]="email" placeholder="email">
+  <input  type="text" [(ngModel)]="email" placeholder="email">
 </div>
 <div>
-  <input type="password" [(ngModel)]="password" placeholder="password">
+  <input  type="password" [(ngModel)]="password" placeholder="password">
 </div>
 <div class="btn-group">
   <button (click)="signup()" [disabled]="!email || !password">
     Signup
   </button>
-
+  <span class="fill"></span>
   <button (click)="login()" [disabled]="!email || !password">
     Login
   </button>

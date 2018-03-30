@@ -1,18 +1,7 @@
 .btn-group {
-    position: relative;
+    display: flex;
 }
 
 .btn-group > button {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
     height: 100%;
-}
-
-.btn-group > button:first-of-type {
-    left: 0px;
-}
-
-.btn-group > button:last-of-type {
-    right: 0px;
 }

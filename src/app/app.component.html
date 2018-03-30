@@ -1,2 +1,6 @@
-<h1 *ngIf="authService.user | async">Welcome {{ (authService.user | async)?.email }}!</h1>
+<mat-toolbar color="primary">
+    <span>Fire App</span>
+    <span class="fill"></span>
+    <span>{{ (authService.user | async)?.email }}</span>
+</mat-toolbar>
 <app-auth id="auth-component" *ngIf="!(authService.user | async)"></app-auth>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AuthService } from './auth.service';
-import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-auth',

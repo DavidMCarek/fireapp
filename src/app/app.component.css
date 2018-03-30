@@ -5,3 +5,7 @@ app-auth {
     min-width: 400px;
     max-width: 600px;
 }
+
+mat-toolbar {
+    display: flex;
+}
