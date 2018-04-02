@@ -2,5 +2,14 @@
     <span>Fire App</span>
     <span class="fill"></span>
     <span>{{ (authService.user | async)?.email }}</span>
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>account_box</mat-icon>
+            <span>Logout</span>
+        </button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu" *ngIf="(authService.user | async)">
+        <mat-icon>more_vert</mat-icon>
+    </button>
 </mat-toolbar>
 <app-auth id="auth-component" *ngIf="!(authService.user | async)"></app-auth>

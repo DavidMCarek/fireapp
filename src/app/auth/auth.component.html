@@ -1,15 +1,21 @@
-<div>
-  <input  type="text" [(ngModel)]="email" placeholder="email">
-</div>
-<div>
-  <input  type="password" [(ngModel)]="password" placeholder="password">
-</div>
-<div class="btn-group">
-  <button (click)="signup()" [disabled]="!email || !password">
-    Signup
-  </button>
-  <span class="fill"></span>
-  <button (click)="login()" [disabled]="!email || !password">
+<mat-card>
+  <mat-card-title>
     Login
-  </button>
-</div>
+  </mat-card-title>
+  <mat-card-subtitle>{{ errorMessage }}</mat-card-subtitle>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="email" placeholder="email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" [(ngModel)]="password" placeholder="password">
+  </mat-form-field>
+  <div class="btn-group">
+    <button mat-raised-button color="primary" (click)="signup()" [disabled]="!email || !password">
+      Signup
+    </button>
+    <span class="fill"></span>
+    <button mat-raised-button color="primary" (click)="login()" [disabled]="!email || !password">
+      Login
+    </button>
+  </div>
+</mat-card>
