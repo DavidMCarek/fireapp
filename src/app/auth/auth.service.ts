@@ -13,18 +13,10 @@ export class AuthService {
     this.user = firebaseAuth.authState;
   }
 
-  signup(email: string, password: string, errorMessage: string) {
-    this.firebaseAuth
+  signup(email: string, password: string): Promise<any> {
+    return this.firebaseAuth
       .auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Success!', value);
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-        errorMessage = err.message;
-      });
-      return '';
+      .createUserWithEmailAndPassword(email, password);
   }
 
   login(email: string, password: string) {

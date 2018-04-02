@@ -14,16 +14,22 @@ export class AuthComponent implements OnInit {
 
   constructor(public authService: AuthService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   signup() {
-    this.authService.signup(this.email, this.password, this.errorMessage);
+    const authPromise = this.authService.signup(this.email, this.password);
+    authPromise.then(function(value) {
+      console.log('signed up');
+    }).catch((error) => this.setErrorMessage(error, this.errorMessage));
     this.email = this.password = '';
   }
 
   login() {
     this.authService.login(this.email, this.password);
     this.email = this.password = '';
+  }
+
+  setErrorMessage(error, errorMessage) {
+    errorMessage = error.message;
   }
 }
