@@ -3,7 +3,11 @@ mat-card {
     margin: 250px auto;
 }
 
-input {
+mat-card-subtitle.color-red {
+    color: #F44336;
+}
+
+mat-form-field {
     width: 100%;
 }
 

@@ -16,20 +16,37 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() { }
 
-  signup() {
-    const authPromise = this.authService.signup(this.email, this.password);
-    authPromise.then(function(value) {
-      console.log('signed up');
-    }).catch((error) => this.setErrorMessage(error, this.errorMessage));
-    this.email = this.password = '';
+  async signup() {
+    this.handleAuthResult(this.authService.signup(this.email, this.password));
   }
 
-  login() {
-    this.authService.login(this.email, this.password);
-    this.email = this.password = '';
+  async tryLogin() {
+    if (await this.authService.user) {
+      this.authService.logout().then(value => this.login());
+    } else {
+      this.login();
+    }
   }
 
-  setErrorMessage(error, errorMessage) {
-    errorMessage = error.message;
+  async login() {
+    this.handleAuthResult(this.authService.login(this.email, this.password));
+  }
+
+  async handleAuthResult(authPromise: Promise<any>) {
+    this.errorMessage = await authPromise
+    .then(value => { })
+    .catch(error => {
+      return error.message;
+    });
+
+    this.cleanUpUsernameAndPassword();
+  }
+
+  cleanUpUsernameAndPassword() {
+    if (this.errorMessage) {
+      this.password = '';
+    } else {
+      this.email = this.password = '';
+    }
   }
 }

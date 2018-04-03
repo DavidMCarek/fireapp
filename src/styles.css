@@ -13,3 +13,7 @@ body {
 .fill {
     flex: 1 1 auto;
 }
+
+.color-red {
+    color: #F44336;
+}
