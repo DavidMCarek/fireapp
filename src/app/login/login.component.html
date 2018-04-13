@@ -10,11 +10,7 @@
     <input matInput type="password" [(ngModel)]="password" placeholder="password">
   </mat-form-field>
   <div class="btn-group">
-    <button mat-raised-button color="primary" (click)="signup()" [disabled]="!email || !password">
-      Signup
-    </button>
-    <span class="fill"></span>
-    <button mat-raised-button color="primary" (click)="login()" [disabled]="!email || !password">
+    <button mat-raised-button color="primary" (click)="tryLogin()" [disabled]="!email || !password">
       Login
     </button>
   </div>

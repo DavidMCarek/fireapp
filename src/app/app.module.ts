@@ -14,15 +14,17 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
-import { ProductListComponent } from './products/product-list/product-list.component';
+import { AccountComponent } from './account/account.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
-    AuthComponent
+    AccountComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   exports: [
     [MatInputModule]
