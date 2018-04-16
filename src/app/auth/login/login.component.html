@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>
-    Signup
+    Login
   </mat-card-title>
   <mat-card-subtitle class="color-red">{{ errorMessage }}</mat-card-subtitle>
   <mat-form-field>
@@ -9,11 +9,8 @@
   <mat-form-field>
     <input matInput type="password" [(ngModel)]="password" placeholder="password">
   </mat-form-field>
-  <mat-form-field>
-    <input matInput type="password" [(ngModel)]="confirmPassword" placeholder="confirm password">
-  </mat-form-field>
   <div class="btn-group">
-    <button mat-raised-button color="primary" (click)="trySignup()" [disabled]="!email || !password || !confirmPassword">
+    <button mat-raised-button color="primary" (click)="login()" [disabled]="!email || !password">
       Login
     </button>
   </div>

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-
 import { Observable } from 'rxjs/Observable';
-import { AuthResponse } from './models/auth-response';
+
+import { AuthResponse } from './auth-response';
 
 @Injectable()
 export class AuthService {
@@ -14,12 +13,20 @@ export class AuthService {
     this.user = firebaseAuth.authState;
   }
 
-  signup(email: string, password: string): Promise<AuthResponse> {
+  async signup(email: string, password: string): Promise<AuthResponse> {
+    if (this.user) {
+      await this.logout();
+    }
+
     const signupPromise = this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
     return this.handleAuthResult(signupPromise);
   }
 
-  login(email: string, password: string): Promise<AuthResponse> {
+  async login(email: string, password: string): Promise<AuthResponse> {
+    if (this.user) {
+      await this.logout();
+    }
+
     const loginPromise = this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
     return this.handleAuthResult(loginPromise);
   }
