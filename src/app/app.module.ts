@@ -9,22 +9,28 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { environment } from '../environments/environment';
+import { AccountComponent } from './account/account.component';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './auth/auth.service';
-import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './shared/header.component';
 import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,11 +45,14 @@ import { SignupComponent } from './signup/signup.component';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    AppRoutingModule
   ],
   exports: [
     [MatInputModule]
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 

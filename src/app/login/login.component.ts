@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Routes } from '../app-routes';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css', '../auth/auth.component.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -22,6 +23,8 @@ export class LoginComponent implements OnInit {
 
   async tryLogin() {
     if (await this.authService.user) {
+      await this.authService.logout();
+      this.login();
     } else {
       this.login();
     }
@@ -32,7 +35,7 @@ export class LoginComponent implements OnInit {
     if (authResponse.isError) {
       this.errorMessage = authResponse.value.message;
     } else {
-      this.router.navigate([]);
+      this.router.navigate([Routes.home]);
     }
   }
 }
