@@ -3,18 +3,21 @@
     Signup
   </mat-card-title>
   <mat-card-subtitle class="color-red">{{ errorMessage }}</mat-card-subtitle>
-  <mat-form-field>
-    <input matInput type="text" [(ngModel)]="email" placeholder="email">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="password" [(ngModel)]="password" placeholder="password">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="password" [(ngModel)]="confirmPassword" placeholder="confirm password">
-  </mat-form-field>
-  <div class="btn-group">
-    <button mat-raised-button color="primary" (click)="signup()" [disabled]="!email || !password || !confirmPassword">
-      Login
-    </button>
-  </div>
+  <form #signupForm="ngForm">
+    <mat-form-field>
+      <input autofocus tabindex="1" matInput type="text" [(ngModel)]="email" name="email" placeholder="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input tabindex="1" matInput type="password" [(ngModel)]="password" name="password" placeholder="password">
+    </mat-form-field>
+    <mat-form-field>
+      <input tabindex="1" matInput type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="confirm password">
+    </mat-form-field>
+    <div class="btn-group">
+      <span class="fill"></span>
+      <button tabindex="1" (click)="signup()" mat-raised-button color="primary" [disabled]="!email || !password || !confirmPassword">
+        Signup
+      </button>
+    </div>
+    </form>
 </mat-card>
