@@ -3,7 +3,7 @@
     Login
   </mat-card-title>
   <mat-card-subtitle class="color-red">{{ errorMessage }}</mat-card-subtitle>
-  <form #loginForm="ngForm">
+  <form>
     <mat-form-field>
       <input autofocus tabindex="1" matInput type="text" [(ngModel)]="email" name="email" placeholder="email">
     </mat-form-field>

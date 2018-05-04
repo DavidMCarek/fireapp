@@ -1,0 +1,13 @@
+<form class="new-channel">
+  <mat-form-field>
+    <input autofocus tabindex="1" matInput type="text" [(ngModel)]="newChannelName" name="newChannelName" placeholder="Channel Name">
+  </mat-form-field>
+  <button mat-icon-button (click)="createChannel(newChannelName)">
+    <mat-icon>add_box</mat-icon>
+  </button>
+</form>
+<div class="channel-list">
+  <div *ngFor="let channel of publicChannels">
+    <a [routerLink]="['/chat', channel]">{{ channel }}</a>
+  </div>
+</div>

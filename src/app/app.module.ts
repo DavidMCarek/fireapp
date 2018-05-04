@@ -9,9 +9,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { environment } from '../environments/environment';
 import { AccountComponent } from './account/account.component';
@@ -19,8 +19,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './auth/auth.service';
 import { LoginComponent } from './auth/login/login.component';
-import { HeaderComponent } from './header/header.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { ChannelsComponent } from './channels/channels.component';
+import { ChatComponent } from './chat/chat.component';
+import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -30,7 +32,9 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChatComponent,
+    ChannelsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { HomeComponent } from './home/home.component';
     HttpModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
     FormsModule,
     MatInputModule,
     MatToolbarModule,
