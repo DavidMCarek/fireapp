@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-channels',
@@ -12,7 +13,10 @@ export class ChannelsComponent implements OnInit {
   publicChannelsRef: AngularFireObject<any>;
   publicChannelsObservable: Observable<any>;
   publicChannels: string[];
-  newChannelName: string;
+
+  newChannelName = new FormControl('', [
+    Validators.maxLength(15)
+  ]);
 
   constructor(private db: AngularFireDatabase) {
     this.publicChannelsRef = this.db.object('public-channels');
@@ -26,12 +30,25 @@ export class ChannelsComponent implements OnInit {
       }
 
       this.publicChannels = Object.keys(channels);
+      this.publicChannels.sort((a, b) => a.localeCompare(b));
     });
   }
 
-  createChannel(name: string) {
-    const channelRef = this.db.object('public-channels/' + name);
+  createChannel(channelFormControl: FormControl): void {
+    if (!channelFormControl.valid) {
+      return;
+    }
+
+    const channelRef = this.db.object('public-channels/' + channelFormControl.value);
     const date = new Date();
     channelRef.set({ lastUpdatedOn: date.toUTCString() });
+  }
+
+  getErrorMessage(): string {
+    if (this.newChannelName.hasError('maxLength')) {
+      return 'Channel name can\'t exceed 15 characters';
+    }
+
+    return '';
   }
 }

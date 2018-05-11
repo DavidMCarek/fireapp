@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       if (authResponse.isError) {
         this.errorMessage = authResponse.value.message;
       } else {
-        this.router.navigate([Routes.home]);
+        this.router.navigate([Routes.dashboard]);
       }
   }
 }

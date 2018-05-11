@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -24,6 +24,7 @@ import { ChannelsComponent } from './channels/channels.component';
 import { ChatComponent } from './chat/chat.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { HomeComponent } from './home/home.component';
     HomeComponent,
     HeaderComponent,
     ChatComponent,
-    ChannelsComponent
+    ChannelsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ import { HomeComponent } from './home/home.component';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   exports: [
