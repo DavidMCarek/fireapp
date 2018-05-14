@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "stylesscss",
+        "styles.css",
         "theme.scss"
       ],
       "scripts": [],

@@ -1,5 +1,4 @@
 div.channel-list {
-    max-height: 200px;
     max-width: 224px;
     overflow-y: auto;
     overflow-x: hidden;

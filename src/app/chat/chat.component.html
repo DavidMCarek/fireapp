@@ -1,1 +1,22 @@
-<h1>chat</h1>
+<div class="channels-container">
+    <div class="padding-wrapper">
+        <app-channels></app-channels>
+    </div>
+</div>
+<div class="chat-container">
+    <div class="messages-container">
+        <div *ngFor="let message of messages">
+            <mat-card>
+                <mat-card-subtitle>{{message.createdBy}}</mat-card-subtitle>
+                <mat-card-content>{{message.text}}</mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="message-input-container">
+        <form>
+            <mat-form-field>
+                <textarea (keyup.enter)="postMessage(messageText.value)" type="text" matInput placeholder="Message..." [formControl]="messageText"></textarea>
+            </mat-form-field>
+        </form>
+    </div>
+</div>

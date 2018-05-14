@@ -1,0 +1,49 @@
+.messages-container mat-card {
+    margin: 10px 10px 0px 10px;
+    display: inline-block;
+    padding: 10px;
+    max-width: 500px;
+}
+
+.messages-container mat-card mat-card-subtitle {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+}
+
+.chat-container .message-input-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.message-input-container mat-form-field {
+    display: flex;
+}
+
+.message-input-container textarea {
+    resize: none;
+}
+
+.channels-container, .chat-container {
+    height: 100%;
+    position: absolute;
+}
+
+.channels-container {
+    width: 241px;
+    border-right: 1px solid #c1c1c1;
+    padding: 0px 5px 0px 20px;
+    overflow: auto;
+}
+
+.padding-wrapper {
+    padding-bottom: 20px;
+}
+
+.chat-container {
+    top: 0;
+    left: 268px;
+    right: 0;
+    bottom: 0;
+}
