@@ -4,13 +4,15 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthResponse } from './auth-response';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class AuthService {
-  user: Observable<firebase.User>;
+  user: firebase.User;
 
-  constructor(private firebaseAuth: AngularFireAuth) {
-    this.user = firebaseAuth.authState;
+  constructor(private firebaseAuth: AngularFireAuth, private db: AngularFireDatabase) {
+    this.user = firebaseAuth.auth.currentUser;
+    firebaseAuth.authState.subscribe(user => this.user = user);
   }
 
   async signup(email: string, password: string): Promise<AuthResponse> {
@@ -20,6 +22,11 @@ export class AuthService {
 
     const signupPromise = this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
     return this.handleAuthResult(signupPromise);
+  }
+
+  async setDisplayName(username: string): Promise<AuthResponse> {
+    const updatePromise = this.user.updateProfile({displayName: username, photoURL: this.user.photoURL});
+    return this.handleAuthResult(updatePromise);
   }
 
   async login(email: string, password: string): Promise<AuthResponse> {

@@ -11,6 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -22,17 +23,24 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  async signup() {
-    if (this.password !== this.confirmPassword) {
+  async signup(username: string, email: string, password: string, confirmPassword: string) {
+    if (password !== confirmPassword) {
       this.errorMessage = 'Passwords do not match';
       return;
     }
 
-    const authResponse = await this.authService.signup(this.email, this.password);
+    let authResponse = await this.authService.signup(email, password);
     if (authResponse.isError) {
       this.errorMessage = authResponse.value.message;
-    } else {
-      this.router.navigate([Routes.home]);
+      return;
     }
+
+    authResponse = await this.authService.setDisplayName(username);
+    if (authResponse.isError) {
+      this.errorMessage = authResponse.value.message;
+      return;
+    }
+
+    this.router.navigate([Routes.dashboard]);
   }
 }

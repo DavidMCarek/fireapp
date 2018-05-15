@@ -1,13 +1,19 @@
 <mat-toolbar color="primary">
-  <span>Fire App</span>
+  <a mat-button routerLink="/" id="FireApp">
+    <mat-icon>whatshot</mat-icon>
+    <span>Fire App</span>
+  </a>
+  <a mat-button routerLink="/chat">
+    Chat
+  </a>
   <span class="fill"></span>
-  <span>{{ (authService.user | async)?.email }}</span>
+  <span *ngIf="authService.user !== null">{{ (authService.user).displayName }}</span>
   <mat-menu #appMenu="matMenu">
-    <button mat-menu-item (click)="logout()" *ngIf="(authService.user | async)">
+    <button mat-menu-item (click)="logout()" *ngIf="(authService.user)">
       <mat-icon>person</mat-icon>
       <span>Logout</span>
     </button>
-    <button mat-menu-item (click)="navigateToLogin()" *ngIf="!(authService.user | async)">
+    <button mat-menu-item (click)="navigateToLogin()" *ngIf="!(authService.user)">
       <mat-icon>person</mat-icon>
       <span>Login</span>
     </button>

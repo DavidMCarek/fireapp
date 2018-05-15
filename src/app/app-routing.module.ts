@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 const routes = [
   { path: Routes.login, component: LoginComponent },
   { path: Routes.signup, component: SignupComponent },
+  { path: Routes.chat + Routes.channelParameter, component: ChatComponent },
   { path: Routes.chat, component: ChatComponent },
   { path: Routes.home, component: HomeComponent },
   { path: Routes.dashboard, component: DashboardComponent },

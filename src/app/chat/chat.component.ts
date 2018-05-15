@@ -14,6 +14,8 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ChatComponent implements OnInit {
 
+  channelSelected = false;
+
   messagesRef: AngularFireList<any>;
   messagesObservable: Observable<Message[]>;
   messages: Message[];
@@ -23,6 +25,13 @@ export class ChatComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private db: AngularFireDatabase, private authService: AuthService) {
     this.route.params.subscribe(params => {
+      if (typeof params.channel === 'undefined' || params.channel === null) {
+        this.channelSelected = false;
+        return;
+      }
+
+      this.channelSelected = true;
+
       this.messagesRef = db.list('messages/' + params.channel);
       this.messagesObservable = this.messagesRef.valueChanges();
       this.messages = new Array();
@@ -32,7 +41,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.user.subscribe(user => this.username = user.email);
+    this.username = this.authService.user.displayName;
   }
 
   postMessage(messageText: string) {

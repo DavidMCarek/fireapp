@@ -30,17 +30,6 @@
     position: absolute;
 }
 
-.channels-container {
-    width: 241px;
-    border-right: 1px solid #c1c1c1;
-    padding: 0px 5px 0px 20px;
-    overflow: auto;
-}
-
-.padding-wrapper {
-    padding-bottom: 20px;
-}
-
 .chat-container {
     top: 0;
     left: 268px;

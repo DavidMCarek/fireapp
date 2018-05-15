@@ -16,17 +16,17 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
 
   constructor(public authService: AuthService,
-  private router: Router) { }
+    private router: Router) { }
 
   ngOnInit() {
   }
 
   async login() {
-      const authResponse = await this.authService.login(this.email, this.password);
-      if (authResponse.isError) {
-        this.errorMessage = authResponse.value.message;
-      } else {
-        this.router.navigate([Routes.dashboard]);
-      }
+    const authResponse = await this.authService.login(this.email, this.password);
+    if (authResponse.isError) {
+      this.errorMessage = authResponse.value.message;
+    } else {
+      this.router.navigate([Routes.dashboard]);
+    }
   }
 }

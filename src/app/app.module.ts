@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,9 +23,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ChannelsComponent } from './channels/channels.component';
 import { ChatComponent } from './chat/chat.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatGridListModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],

@@ -1,3 +1,5 @@
 mat-toolbar {
     display: flex;
+    height: 55px;
+    font-weight: 500;
 }
