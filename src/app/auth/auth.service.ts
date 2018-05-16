@@ -15,8 +15,45 @@ export class AuthService {
     firebaseAuth.authState.subscribe(user => this.user = user);
   }
 
-  async signup(email: string, password: string): Promise<AuthResponse> {
-    if (this.user) {
+  get authenticated(): boolean {
+    return this.user !== null;
+  }
+
+  get currentUser(): firebase.User {
+    return this.authenticated ? this.user : null;
+  }
+
+  get currentUserObservable(): Observable<firebase.User> {
+    return this.firebaseAuth.authState;
+  }
+
+  googleLogin(): Promise<AuthResponse> {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.socialSignIn(provider);
+  }
+
+  githubLogin(): Promise<AuthResponse> {
+    const provider = new firebase.auth.GithubAuthProvider();
+    return this.socialSignIn(provider);
+  }
+
+  socialSignIn(provider): Promise<AuthResponse> {
+    const socialSignInPromise = this.firebaseAuth.auth.signInWithPopup(provider);
+    return this.handleAuthResult(socialSignInPromise);
+  }
+
+  setDisplayName(username: string): Promise<AuthResponse> {
+    const updatePromise = this.user.updateProfile({displayName: username, photoURL: this.user.photoURL});
+    return this.handleAuthResult(updatePromise);
+  }
+
+  logout(): Promise<AuthResponse> {
+    const logoutPromise = this.firebaseAuth.auth.signOut();
+    return this.handleAuthResult(logoutPromise);
+  }
+
+  async signUp(email: string, password: string): Promise<AuthResponse> {
+    if (this.authenticated) {
       await this.logout();
     }
 
@@ -24,23 +61,13 @@ export class AuthService {
     return this.handleAuthResult(signupPromise);
   }
 
-  async setDisplayName(username: string): Promise<AuthResponse> {
-    const updatePromise = this.user.updateProfile({displayName: username, photoURL: this.user.photoURL});
-    return this.handleAuthResult(updatePromise);
-  }
-
-  async login(email: string, password: string): Promise<AuthResponse> {
-    if (this.user) {
+  async signIn(email: string, password: string): Promise<AuthResponse> {
+    if (this.authenticated) {
       await this.logout();
     }
 
     const loginPromise = this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
     return this.handleAuthResult(loginPromise);
-  }
-
-  logout(): Promise<AuthResponse> {
-    const logoutPromise = this.firebaseAuth.auth.signOut();
-    return this.handleAuthResult(logoutPromise);
   }
 
   async handleAuthResult(authPromise: Promise<any>): Promise<AuthResponse> {

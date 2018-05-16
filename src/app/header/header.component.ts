@@ -17,16 +17,16 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService,
   private router: Router) { }
 
-  async logout() {
+  async signOut() {
     await this.authService.logout();
-    this.navigateToLogin();
+    this.navigateToSignIn();
   }
 
-  navigateToLogin() {
-    this.router.navigate([Routes.login]);
+  navigateToSignIn() {
+    this.router.navigate([Routes.signIn]);
   }
 
-  navigateToSignup() {
-    this.router.navigate([Routes.signup]);
+  navigateToSignUp() {
+    this.router.navigate([Routes.signUp]);
   }
 }

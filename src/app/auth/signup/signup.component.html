@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>
-    Signup
+    Sign Up
   </mat-card-title>
   <mat-card-subtitle class="color-red">{{ errorMessage }}</mat-card-subtitle>
   <form>
@@ -18,9 +18,9 @@
     </mat-form-field>
     <div class="btn-group">
       <span class="fill"></span>
-      <button tabindex="1" (click)="signup(username, email, password, confirmPassword)" mat-raised-button color="primary"
+      <button tabindex="1" (click)="signUp(username, email, password, confirmPassword)" mat-raised-button color="primary"
       [disabled]="!username || !email || !password || !confirmPassword">
-        Signup
+        Sign Up
       </button>
     </div>
   </form>

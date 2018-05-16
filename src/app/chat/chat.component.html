@@ -1,25 +1,23 @@
-<mat-grid-list cols="2">
-  <mat-grid-tile>
-    <app-channels></app-channels>
-  </mat-grid-tile>
-</mat-grid-list>
-
-
-
 <div class="chat-container">
-  <div class="messages-container">
-    <div *ngFor="let message of messages">
-      <mat-card>
-        <mat-card-subtitle>{{message.createdBy}}</mat-card-subtitle>
-        <mat-card-content>{{message.text}}</mat-card-content>
-      </mat-card>
-    </div>
+  <div class="channels-container">
+    <app-channels></app-channels>
   </div>
-  <div class="message-input-container" *ngIf="channelSelected">
-    <form>
-      <mat-form-field>
-        <textarea (keyup.enter)="postMessage(messageText.value)" type="text" matInput placeholder="Message..." [formControl]="messageText"></textarea>
-      </mat-form-field>
-    </form>
+  <div class=messaging-container>
+    <div class="messages-container">
+      <div *ngFor="let message of messages">
+        <mat-card>
+          <mat-card-subtitle>{{message.createdBy}}</mat-card-subtitle>
+          <mat-card-content>{{message.text}}</mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="message-input-container" *ngIf="channelSelected">
+      <form>
+        <mat-form-field>
+          <textarea (keyup.enter)="postMessage(messageText.value)" type="text" matInput placeholder="Write a message..." [formControl]="messageText"></textarea>
+        </mat-form-field>
+      </form>
+    </div>
   </div>
 </div>

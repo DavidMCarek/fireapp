@@ -19,7 +19,6 @@ export class ChatComponent implements OnInit {
   messagesRef: AngularFireList<any>;
   messagesObservable: Observable<Message[]>;
   messages: Message[];
-  username: string;
 
   messageText = new FormControl('', []);
 
@@ -41,7 +40,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.username = this.authService.user.displayName;
   }
 
   postMessage(messageText: string) {
@@ -51,7 +49,7 @@ export class ChatComponent implements OnInit {
       return;
     }
 
-    this.messagesRef.push(new Message(messageText, this.username));
+    this.messagesRef.push(new Message(messageText, this.authService.user.displayName));
     this.messageText.setValue('');
   }
 }

@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css', '../auth.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignUpComponent implements OnInit {
 
   username: string;
   email: string;
@@ -23,13 +23,13 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  async signup(username: string, email: string, password: string, confirmPassword: string) {
+  async signUp(username: string, email: string, password: string, confirmPassword: string) {
     if (password !== confirmPassword) {
       this.errorMessage = 'Passwords do not match';
       return;
     }
 
-    let authResponse = await this.authService.signup(email, password);
+    let authResponse = await this.authService.signUp(email, password);
     if (authResponse.isError) {
       this.errorMessage = authResponse.value.message;
       return;
@@ -41,6 +41,6 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.router.navigate([Routes.dashboard]);
+    this.router.navigate([Routes.chat]);
   }
 }

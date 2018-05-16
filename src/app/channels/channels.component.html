@@ -1,14 +1,36 @@
-<form class="new-channel">
-  <mat-form-field>
-    <input matInput placeholder="Channel Name" [formControl]="newChannelName">
-    <mat-error *ngIf="newChannelName.invalid">{{getErrorMessage()}}</mat-error>
-  </mat-form-field>
-  <button mat-icon-button (click)="createChannel(newChannelName)">
-    <mat-icon>add_box</mat-icon>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Create Channel
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-checkbox [(ngModel)]="isNewChannelPublic" color="accent"></mat-checkbox>
+  <span>Public</span>
+  <form class="channel-name">
+    <mat-form-field>
+      <input matInput placeholder="Channel Name" [formControl]="newChannelName"/>
+      <mat-error *ngIf="newChannelName.invalid">Channel name can't exceed 15 characters</mat-error>
+    </mat-form-field>
+  </form>
+  <button mat-raised-button [disabled]="newChannelName.invalid" color="accent" (click)="createChannel(isNewChannelPublic, newChannelName.value)">
+    Create
   </button>
-</form>
-<div class="channel-list">
-  <div *ngFor="let channel of publicChannels">
-    <a mat-button color="accent" [routerLink]="['/chat', channel]">{{ channel }}</a>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Public Channels
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-form-field>
+    <input matInput placeholder="Filter" [(ngModel)]="filterInput">
+  </mat-form-field>
+  <div class="channel-list">
+    <div *ngFor="let channel of publicChannels | search: filterInput">
+      <a mat-button color="accent" [routerLink]="['/chat', channel]">{{ channel }}</a>
+    </div>
   </div>
-</div>
+</mat-expansion-panel>

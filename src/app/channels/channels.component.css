@@ -2,6 +2,7 @@ div.channel-list {
     max-width: 224px;
     overflow-y: auto;
     overflow-x: hidden;
+    max-height: 400px;
 }
 
 div.channel-list a {
@@ -10,6 +11,22 @@ div.channel-list a {
     min-width: 224px;
 }
 
+.channel-name {
+    padding-top: 10px;
+}
+
 .mat-button {
     line-height: 25px;
+}
+
+.channel-filter > mat-form-field {
+    width: 100%;
+}
+
+mat-expansion-panel {
+    margin-bottom: 20px;
+}
+
+mat-form-field {
+    width: 100%;
 }

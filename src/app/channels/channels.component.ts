@@ -14,9 +14,9 @@ export class ChannelsComponent implements OnInit {
   publicChannelsObservable: Observable<any>;
   publicChannels: string[];
 
-  newChannelName = new FormControl('', [
-    Validators.maxLength(15)
-  ]);
+  isNewChannelPublic = true;
+  newChannelName = new FormControl('', [Validators.maxLength(15)]);
+  filterInput = '';
 
   constructor(private db: AngularFireDatabase) {
     this.publicChannelsRef = this.db.object('public-channels');
@@ -42,6 +42,10 @@ export class ChannelsComponent implements OnInit {
     const channelRef = this.db.object('public-channels/' + channelFormControl.value);
     const date = new Date();
     channelRef.set({ lastUpdatedOn: date.toUTCString() });
+  }
+
+  filterChannels() {
+
   }
 
   getErrorMessage(): string {

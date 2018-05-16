@@ -9,17 +9,17 @@
   <span class="fill"></span>
   <span *ngIf="authService.user !== null">{{ (authService.user).displayName }}</span>
   <mat-menu #appMenu="matMenu">
-    <button mat-menu-item (click)="logout()" *ngIf="(authService.user)">
+    <button mat-menu-item (click)="signOut()" *ngIf="(authService.authenticated)">
       <mat-icon>person</mat-icon>
-      <span>Logout</span>
+      <span>Sign Out</span>
     </button>
-    <button mat-menu-item (click)="navigateToLogin()" *ngIf="!(authService.user)">
+    <button mat-menu-item (click)="navigateToSignIn()" *ngIf="!(authService.authenticated)">
       <mat-icon>person</mat-icon>
-      <span>Login</span>
+      <span>Sign In</span>
     </button>
-    <button mat-menu-item (click)="navigateToSignup()">
+    <button mat-menu-item (click)="navigateToSignUp()">
       <mat-icon>person_add</mat-icon>
-      <span>Signup</span>
+      <span>Sign Up</span>
     </button>
   </mat-menu>
   <button mat-icon-button [matMenuTriggerFor]="appMenu" >

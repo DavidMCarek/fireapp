@@ -1,3 +1,34 @@
+.mat-checkbox-inner-container {
+    height: 16px;
+    width: 16px;
+}
+
+.chat-container {
+    display: flex;
+    flex-flow: row;
+    height: 100%;
+}
+
+.channels-container {
+    overflow: hidden;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.03);
+    flex: 0 1 auto;
+}
+
+.messaging-container {
+    flex: 1 1 auto;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+}
+
+.messages-container {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
 .messages-container mat-card {
     margin: 10px 10px 0px 10px;
     display: inline-block;
@@ -10,29 +41,22 @@
     margin-bottom: 5px;
 }
 
-.chat-container .message-input-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.message-input-container {
+    flex: 0 1 auto;
+    padding-top: 10px;
+    background-color: #fff;
 }
 
-.message-input-container mat-form-field {
+.message-input-container > form {
     display: flex;
 }
 
-.message-input-container textarea {
+.message-input-container > form > mat-form-field {
+    flex: 1 1 auto;
+    margin: 0 20px;
+}
+
+.message-input-container > form > mat-form-field textarea {
     resize: none;
-}
-
-.channels-container, .chat-container {
-    height: 100%;
-    position: absolute;
-}
-
-.chat-container {
-    top: 0;
-    left: 268px;
-    right: 0;
-    bottom: 0;
+    height: 150px;
 }

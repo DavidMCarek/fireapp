@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>
-    Login
+    Sign In
   </mat-card-title>
   <mat-card-subtitle class="color-red">{{ errorMessage }}</mat-card-subtitle>
   <form>
@@ -12,9 +12,16 @@
     </mat-form-field>
     <div class="btn-group">
       <span class="fill"></span>
-      <button tabindex="1" (click)="login()" mat-raised-button color="primary" [disabled]="!email || !password">
-        Login
+      <button tabindex="1" (click)="signIn()" mat-raised-button color="primary" [disabled]="!email || !password">
+        Sign In
       </button>
     </div>
   </form>
+  <div class="divider-container">
+    <span>or</span>
+    <mat-divider></mat-divider>
+  </div>
+  <div id="ExternalSignIn">
+    <button tabindex="1" (click)="signInWithGoogle()" mat-raised-button color="primary">Sign in with Google</button>
+  </div>
 </mat-card>
