@@ -8,6 +8,7 @@
 
 # dependencies
 /node_modules
+node_modules
 
 # IDEs and editors
 /.idea
@@ -24,6 +25,7 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/.vscode
 
 # misc
 /.sass-cache
@@ -33,6 +35,8 @@
 npm-debug.log
 testem.log
 /typings
+package-lock.json
+.npmrc
 
 # e2e
 /e2e/*.js
