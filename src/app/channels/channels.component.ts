@@ -34,14 +34,16 @@ export class ChannelsComponent implements OnInit {
     });
   }
 
-  createChannel(channelFormControl: FormControl): void {
+  createChannel(isPublicChannel: boolean, channelFormControl: FormControl): void {
     if (!channelFormControl.valid) {
       return;
     }
 
-    const channelRef = this.db.object('public-channels/' + channelFormControl.value);
-    const date = new Date();
-    channelRef.set({ lastUpdatedOn: date.toUTCString() });
+    if (isPublicChannel) {
+      const channelRef = this.db.object('public-channels/' + channelFormControl.value);
+      const date = new Date();
+      channelRef.set({ createdDate: date.toUTCString() });
+    }
   }
 
   filterChannels() {

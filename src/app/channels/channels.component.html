@@ -13,7 +13,7 @@
       <mat-error *ngIf="newChannelName.invalid">Channel name can't exceed 15 characters</mat-error>
     </mat-form-field>
   </form>
-  <button mat-raised-button [disabled]="newChannelName.invalid" color="accent" (click)="createChannel(isNewChannelPublic, newChannelName.value)">
+  <button mat-raised-button [disabled]="newChannelName.invalid" color="accent" (click)="createChannel(isNewChannelPublic, newChannelName)">
     Create
   </button>
 </mat-expansion-panel>
