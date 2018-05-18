@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ChannelNameValidator } from './channels.validators';
+import { Router } from '@angular/router';
+import { Routes } from '../app-routes';
+import { ChannelStateService } from './channel-state.service';
+import { ExpansionState } from './channel-state';
 
 @Component({
   selector: 'app-channels',
@@ -19,10 +23,14 @@ export class ChannelsComponent implements OnInit {
   newChannelName: FormControl;
   filterInput = '';
 
-  constructor(private db: AngularFireDatabase) {
+  expansionState: ExpansionState;
+
+  constructor(private db: AngularFireDatabase, private router: Router, private channelStateService: ChannelStateService) {
     this.publicChannelsRef = this.db.object('public-channels');
     this.publicChannelsObservable = this.publicChannelsRef.valueChanges();
     this.updateChannelNameValidator();
+
+    this.expansionState = channelStateService.getExpansionState();
   }
 
   ngOnInit() {
@@ -49,6 +57,11 @@ export class ChannelsComponent implements OnInit {
       const channelRef = this.db.object('public-channels/' + channelFormControl.value);
       channelRef.set(true);
     }
+  }
+
+  routeToChannel(channelName: string) {
+    this.channelStateService.setExpansionState(this.expansionState);
+    this.router.navigate([Routes.chat, channelName]);
   }
 
   getErrorMessage(): string {

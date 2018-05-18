@@ -1,4 +1,5 @@
-<mat-expansion-panel>
+<mat-expansion-panel [expanded]="expansionState.isCreateChannelExpanded"
+  (opened)="expansionState.isCreateChannelExpanded = true" (closed)="expansionState.isCreateChannelExpanded = false">
   <mat-expansion-panel-header>
     <mat-panel-title>
       Create Channel
@@ -20,7 +21,8 @@
   </form>
 </mat-expansion-panel>
 
-<mat-expansion-panel>
+<mat-expansion-panel [expanded]="expansionState.isPublicChannelsExpanded"
+  (opened)="expansionState.isPublicChannelsExpanded = true" (closed)="expansionState.isCreateChannelExpanded = false">
   <mat-expansion-panel-header>
     <mat-panel-title>
       Public Channels
@@ -32,7 +34,7 @@
   </mat-form-field>
   <div class="channel-list">
     <div *ngFor="let channel of publicChannels | search: filterInput">
-      <a mat-button color="accent" [routerLink]="['/chat', channel]">{{ channel }}</a>
+      <a mat-button color="accent" (click)="routeToChannel(channel)">{{ channel }}</a>
     </div>
   </div>
 </mat-expansion-panel>

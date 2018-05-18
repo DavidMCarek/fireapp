@@ -30,6 +30,7 @@ import { ChatComponent } from './chat/chat.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { ChannelStateService } from './channels/channel-state.service';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { SearchPipe } from './pipes/search.pipe';
     [MatInputModule]
   ],
   providers: [
-    AuthService
+    AuthService,
+    ChannelStateService
   ],
   bootstrap: [AppComponent]
 })
