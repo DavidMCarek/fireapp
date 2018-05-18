@@ -13,7 +13,7 @@
     overflow: hidden;
     padding: 20px;
     background: rgba(0, 0, 0, 0.03);
-    flex: 0 1 auto;
+    flex: 0 0 auto;
 }
 
 .messaging-container {
@@ -33,12 +33,17 @@
     margin: 10px 10px 0px 10px;
     display: inline-block;
     padding: 10px;
-    max-width: 500px;
+    max-width: 80%;
 }
 
 .messages-container mat-card mat-card-subtitle {
     font-size: 0.8em;
     margin-bottom: 5px;
+}
+
+.messages-container mat-card mat-card-content {
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .message-input-container {

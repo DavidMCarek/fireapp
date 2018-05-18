@@ -1,6 +1,11 @@
 {
   "rules": {
     ".read": "auth != null",
-    ".write": "auth != null"
+    ".write": "auth != null",
+    "public-channels": {
+      "$name": {
+      	".validate": "!root.child('public-channels').child($name).exists()"  
+      }
+    }
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { ChannelNameValidator } from './channels.validators';
 
 @Component({
   selector: 'app-channels',
@@ -15,12 +16,13 @@ export class ChannelsComponent implements OnInit {
   publicChannels: string[];
 
   isNewChannelPublic = true;
-  newChannelName = new FormControl('', [Validators.maxLength(15)]);
+  newChannelName: FormControl;
   filterInput = '';
 
   constructor(private db: AngularFireDatabase) {
     this.publicChannelsRef = this.db.object('public-channels');
     this.publicChannelsObservable = this.publicChannelsRef.valueChanges();
+    this.updateChannelNameValidator();
   }
 
   ngOnInit() {
@@ -31,30 +33,34 @@ export class ChannelsComponent implements OnInit {
 
       this.publicChannels = Object.keys(channels);
       this.publicChannels.sort((a, b) => a.localeCompare(b));
+      this.updateChannelNameValidator();
     });
   }
 
-  createChannel(isPublicChannel: boolean, channelFormControl: FormControl): void {
-    if (!channelFormControl.valid) {
-      return;
-    }
-
-    if (isPublicChannel) {
-      const channelRef = this.db.object('public-channels/' + channelFormControl.value);
-      const date = new Date();
-      channelRef.set({ createdDate: date.toUTCString() });
-    }
+  updateChannelNameValidator() {
+    this.newChannelName = new FormControl('', [
+      Validators.maxLength(20),
+      ChannelNameValidator.channelAlreadyExists(this.publicChannels)
+    ]);
   }
 
-  filterChannels() {
-
+  createChannel(isPublicChannel: boolean, channelFormControl: FormControl): void {
+    if (isPublicChannel) {
+      const channelRef = this.db.object('public-channels/' + channelFormControl.value);
+      channelRef.set(true);
+    }
   }
 
   getErrorMessage(): string {
-    if (this.newChannelName.hasError('maxLength')) {
-      return 'Channel name can\'t exceed 15 characters';
+    if (this.newChannelName.hasError('maxlength')) {
+      return 'Channel name can\'t exceed 20 characters';
+    }
+
+    if (this.newChannelName.hasError('channelAlreadyExists')) {
+      return 'A channel with this name already exists';
     }
 
     return '';
   }
+
 }

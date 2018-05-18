@@ -5,17 +5,19 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <mat-checkbox [(ngModel)]="isNewChannelPublic" color="accent"></mat-checkbox>
-  <span>Public</span>
-  <form class="channel-name">
+  <form class="create-channel">
+    <div>
+      <mat-checkbox [(ngModel)]="isNewChannelPublic" name="isPublicChannel" color="accent"></mat-checkbox>
+      <span>Public</span>
+    </div>
     <mat-form-field>
       <input matInput placeholder="Channel Name" [formControl]="newChannelName"/>
-      <mat-error *ngIf="newChannelName.invalid">Channel name can't exceed 15 characters</mat-error>
+      <mat-error *ngIf="newChannelName.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
+    <button mat-raised-button [disabled]="newChannelName.invalid" color="accent" (click)="createChannel(isNewChannelPublic, newChannelName)">
+      Create
+    </button>
   </form>
-  <button mat-raised-button [disabled]="newChannelName.invalid" color="accent" (click)="createChannel(isNewChannelPublic, newChannelName)">
-    Create
-  </button>
 </mat-expansion-panel>
 
 <mat-expansion-panel>

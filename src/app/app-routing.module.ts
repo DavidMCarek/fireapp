@@ -13,9 +13,8 @@ const routes = [
   { path: Routes.signUp, component: SignUpComponent },
   { path: Routes.chat + Routes.channelParameter, component: ChatComponent },
   { path: Routes.chat, component: ChatComponent },
-  { path: Routes.home, component: HomeComponent },
-  { path: Routes.default, redirectTo: Routes.home, pathMatch: 'full' },
-  { path: Routes.any, redirectTo: Routes.home, pathMatch: 'full' }
+  { path: Routes.default, component: HomeComponent },
+  { path: Routes.any, redirectTo: Routes.default, pathMatch: 'full' }
 ];
 
 @NgModule({

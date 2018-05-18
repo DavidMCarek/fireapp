@@ -1,5 +1,4 @@
 div.channel-list {
-    max-width: 224px;
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 400px;
@@ -8,11 +7,15 @@ div.channel-list {
 div.channel-list a {
     padding: 0px 5px;
     text-align: left;
-    min-width: 224px;
+    width: 100%;
 }
 
-.channel-name {
-    padding-top: 10px;
+.create-channel mat-form-field {
+    padding: 5px 0px;
+}
+
+.create-channel button {
+    display: block;
 }
 
 .mat-button {
