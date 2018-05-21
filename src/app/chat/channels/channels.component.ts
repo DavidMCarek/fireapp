@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
-import { Routes } from '../../app-routes';
+import { Routes } from '../../common/routes';
 import { ExpansionState } from './channel-state';
 import { ChannelStateService } from './channel-state.service';
 import { ChannelNameValidator } from './channels.validators';
