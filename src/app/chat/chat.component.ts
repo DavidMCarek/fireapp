@@ -1,45 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/takeUntil';
 
-import { Message } from './message';
 import { AuthService } from '../auth/auth.service';
+import { Message } from './message';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
   channelSelected = false;
 
   messagesRef: AngularFireList<any>;
   messagesObservable: Observable<Message[]>;
   messages: Message[];
+  subscriptionContainer: Subscription;
 
   messageText = new FormControl('', []);
 
-  constructor(private route: ActivatedRoute, private db: AngularFireDatabase, private authService: AuthService) {
-    this.route.params.subscribe(params => {
-      if (typeof params.channel === 'undefined' || params.channel === null) {
-        this.channelSelected = false;
-        return;
-      }
+  private unsubscribe = new Subject<void>();
 
-      this.channelSelected = true;
+  constructor(
+    private route: ActivatedRoute,
+    private db: AngularFireDatabase,
+    private authService: AuthService
+  ) { }
 
-      this.messagesRef = db.list('messages/' + params.channel);
-      this.messagesObservable = this.messagesRef.valueChanges();
-      this.messages = new Array();
+  ngOnInit() {
+    this.route.params
+      .takeUntil(this.unsubscribe)
+      .subscribe(params => {
+        if (typeof params.channel === 'undefined' || params.channel === null) {
+          this.channelSelected = false;
+          return;
+        }
 
-      this.messagesObservable.subscribe(messages => this.messages = messages);
+        this.channelSelected = true;
+
+        this.messagesRef = this.db.list('messages/' + params.channel);
+        this.messagesObservable = this.messagesRef.valueChanges();
+        this.messages = new Array();
+
+        this.messagesObservable
+          .takeUntil(this.unsubscribe)
+          .subscribe(messages => this.messages = messages);
     });
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   postMessage(messageText: string) {
@@ -49,7 +67,13 @@ export class ChatComponent implements OnInit {
       return;
     }
 
-    this.messagesRef.push(new Message(messageText, this.authService.user.displayName));
+    const date = new Date();
+    const message = new Message(
+      messageText,
+      this.authService.currentUser.displayName,
+      date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    );
+    this.messagesRef.push(message);
     this.messageText.setValue('');
   }
 }

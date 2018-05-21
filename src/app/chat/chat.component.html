@@ -6,7 +6,11 @@
     <div class="messages-container">
       <div *ngFor="let message of messages">
         <mat-card>
-          <mat-card-subtitle>{{message.createdBy}}</mat-card-subtitle>
+          <mat-card-subtitle>
+            <span>{{message.createdBy}}</span>
+            <span class="fill"></span>
+            <span>{{message.time}}</span>
+          </mat-card-subtitle>
           <mat-card-content>{{message.text}}</mat-card-content>
         </mat-card>
       </div>

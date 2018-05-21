@@ -17,8 +17,10 @@ export class SignUpComponent implements OnInit {
   confirmPassword: string;
   errorMessage: string;
 
-  constructor(public authService: AuthService,
-  private router: Router) { }
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }

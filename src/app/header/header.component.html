@@ -7,7 +7,7 @@
     Chat
   </a>
   <span class="fill"></span>
-  <span *ngIf="authService.user !== null">{{ (authService.user).displayName }}</span>
+  <span *ngIf="authService.currentUser !== null">{{ (authService.currentUser).displayName }}</span>
   <mat-menu #appMenu="matMenu">
     <button mat-menu-item (click)="signOut()" *ngIf="(authService.authenticated)">
       <mat-icon>person</mat-icon>

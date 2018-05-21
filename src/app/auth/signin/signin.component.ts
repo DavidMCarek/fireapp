@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Routes } from '../../app-routes';
-import { AuthService } from '../auth.service';
 import { AuthResponse } from '../auth-response';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css', '../auth.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
 
   email: string;
   password: string;
   errorMessage: string;
 
-  constructor(public authService: AuthService,
-    private router: Router) { }
-
-  ngOnInit() {
-  }
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) { }
 
   async signIn() {
     const authResponse = await this.authService.signIn(this.email, this.password);
@@ -35,8 +34,9 @@ export class SignInComponent implements OnInit {
   handleSignInResponse(authResponse: AuthResponse) {
     if (authResponse.isError) {
       this.errorMessage = authResponse.value.message;
-    } else {
-      this.router.navigate([Routes.chat]);
+      return;
     }
+
+    this.router.navigate([Routes.chat]);
   }
 }

@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthResponse } from './auth-response';
-import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class AuthService {
-  user: firebase.User;
+  private user: firebase.User;
 
-  constructor(private firebaseAuth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(
+    private firebaseAuth: AngularFireAuth,
+    private db: AngularFireDatabase
+  ) {
     this.user = firebaseAuth.auth.currentUser;
     firebaseAuth.authState.subscribe(user => this.user = user);
   }
@@ -29,11 +32,6 @@ export class AuthService {
 
   googleLogin(): Promise<AuthResponse> {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this.socialSignIn(provider);
-  }
-
-  githubLogin(): Promise<AuthResponse> {
-    const provider = new firebase.auth.GithubAuthProvider();
     return this.socialSignIn(provider);
   }
 

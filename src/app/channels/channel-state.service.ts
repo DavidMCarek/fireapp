@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { ExpansionState } from './channel-state';
 
 @Injectable()
@@ -12,7 +13,7 @@ export class ChannelStateService {
     this.currentExpansionState = expansionState;
   }
 
-  getExpansionState(): ExpansionState {
+  get expansionState(): ExpansionState {
     return this.currentExpansionState;
   }
 }

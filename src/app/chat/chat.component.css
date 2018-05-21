@@ -39,6 +39,11 @@
 .messages-container mat-card mat-card-subtitle {
     font-size: 0.8em;
     margin-bottom: 5px;
+    display: flex;
+}
+
+.messages-container mat-card mat-card-subtitle span:first-of-type {
+    padding-right: 20px;
 }
 
 .messages-container mat-card mat-card-content {

@@ -1,19 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { ChannelNameValidator } from './channels.validators';
-import { Router } from '@angular/router';
+
 import { Routes } from '../app-routes';
-import { ChannelStateService } from './channel-state.service';
 import { ExpansionState } from './channel-state';
+import { ChannelStateService } from './channel-state.service';
+import { ChannelNameValidator } from './channels.validators';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-channels',
   templateUrl: './channels.component.html',
   styleUrls: ['./channels.component.css']
 })
-export class ChannelsComponent implements OnInit {
+export class ChannelsComponent implements OnInit, OnDestroy {
 
   publicChannelsRef: AngularFireObject<any>;
   publicChannelsObservable: Observable<any>;
@@ -25,24 +27,36 @@ export class ChannelsComponent implements OnInit {
 
   expansionState: ExpansionState;
 
-  constructor(private db: AngularFireDatabase, private router: Router, private channelStateService: ChannelStateService) {
+  private unsubscribe = new Subject<void>();
+
+  constructor(
+    private db: AngularFireDatabase,
+    private router: Router,
+    private channelStateService: ChannelStateService
+  ) { }
+
+  ngOnInit() {
     this.publicChannelsRef = this.db.object('public-channels');
     this.publicChannelsObservable = this.publicChannelsRef.valueChanges();
     this.updateChannelNameValidator();
+    this.expansionState = this.channelStateService.expansionState;
 
-    this.expansionState = channelStateService.getExpansionState();
+    this.publicChannelsObservable
+      .takeUntil(this.unsubscribe)
+      .subscribe(channels => {
+        if (channels === null) {
+          return;
+        }
+
+        this.publicChannels = Object.keys(channels);
+        this.publicChannels.sort((a, b) => a.localeCompare(b));
+        this.updateChannelNameValidator();
+    });
   }
 
-  ngOnInit() {
-    this.publicChannelsObservable.subscribe(channels => {
-      if (channels === null) {
-        return;
-      }
-
-      this.publicChannels = Object.keys(channels);
-      this.publicChannels.sort((a, b) => a.localeCompare(b));
-      this.updateChannelNameValidator();
-    });
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   updateChannelNameValidator() {
