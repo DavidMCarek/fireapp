@@ -25,12 +25,9 @@ import { AppComponent } from './app.component';
 import { AuthService } from './auth/auth.service';
 import { SignInComponent } from './auth/signin/signin.component';
 import { SignUpComponent } from './auth/signup/signup.component';
-import { ChannelsComponent } from './channels/channels.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatModule } from './chat/chat.module';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { SearchPipe } from './pipes/search.pipe';
-import { ChannelStateService } from './channels/channel-state.service';
 
 @NgModule({
   declarations: [
@@ -39,10 +36,7 @@ import { ChannelStateService } from './channels/channel-state.service';
     SignInComponent,
     SignUpComponent,
     HomeComponent,
-    HeaderComponent,
-    ChatComponent,
-    ChannelsComponent,
-    SearchPipe,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -58,20 +52,15 @@ import { ChannelStateService } from './channels/channel-state.service';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatGridListModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatSlideToggleModule,
-    MatCheckboxModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChatModule
   ],
   exports: [
     [MatInputModule]
   ],
   providers: [
-    AuthService,
-    ChannelStateService
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
