@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params
       .takeUntil(this.unsubscribe)
       .subscribe(params => {
@@ -48,16 +48,23 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.messagesRef = this.db.list('messages/' + params.channel);
         this.messagesObservable = this.messagesRef.valueChanges();
         this.messages = new Array();
-
-        this.messagesObservable
-          .takeUntil(this.unsubscribe)
-          .subscribe(messages => this.messages = messages);
+        this.subscribeToMessages();
     });
   }
 
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  subscribeToMessages() {
+    this.messagesObservable
+      .takeUntil(this.unsubscribe)
+      .subscribe(messages => {
+        this.messages = messages;
+        const messageContainer = document.getElementsByClassName('messages-container')[0];
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      });
   }
 
   postMessage(messageText: string) {
