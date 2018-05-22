@@ -37,6 +37,12 @@ export class SignInComponent {
       return;
     }
 
+    if (this.authService.redirectUrl !== null && this.authService.redirectUrl.length > 0) {
+      this.router.navigate([this.authService.redirectUrl]);
+      this.authService.redirectUrl = null;
+      return;
+    }
+
     this.router.navigate([Routes.chat]);
   }
 }

@@ -8,6 +8,9 @@ import { AuthResponse } from './auth-response';
 
 @Injectable()
 export class AuthService {
+
+  redirectUrl: string;
+
   private user: firebase.User;
 
   constructor(
