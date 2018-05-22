@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
@@ -15,8 +15,7 @@ import { Message } from './message';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, OnDestroy {
-
+export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   channelSelected = false;
 
   messagesRef: AngularFireList<any>;
@@ -27,6 +26,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   messageText = new FormControl('', []);
 
   private unsubscribe = new Subject<void>();
+  private isNewMessage = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,9 +52,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.isNewMessage) {
+      const messageContainer = document.getElementsByClassName('messages-container')[0];
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+      this.isNewMessage = false;
+    }
   }
 
   subscribeToMessages() {
@@ -62,8 +70,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       .takeUntil(this.unsubscribe)
       .subscribe(messages => {
         this.messages = messages;
-        const messageContainer = document.getElementsByClassName('messages-container')[0];
-        messageContainer.scrollTop = messageContainer.scrollHeight;
+        this.isNewMessage = true;
       });
   }
 

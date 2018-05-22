@@ -26,11 +26,11 @@
 .messages-container {
     flex: 1 1 auto;
     overflow: auto;
-    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .messages-container mat-card {
-    margin: 10px 10px 0px 10px;
+    margin: 0px 10px 10px 10px;
     display: inline-block;
     padding: 10px;
     max-width: 80%;
