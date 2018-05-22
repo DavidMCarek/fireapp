@@ -16,8 +16,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ChannelStateService } from './channels/channel-state.service';
 import { ChannelsComponent } from './channels/channels.component';
 import { ChatComponent } from './chat.component';
-import { MaterialModule } from '../common/material.module';
-import { RoutingModule } from '../common/routing.module';
+import { MaterialModule } from '../shared/material.module';
+import { RoutingModule } from '../shared/routing.module';
 
 @NgModule({
   imports: [

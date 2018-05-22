@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Routes } from '../../common/routes';
+import { Routes } from '../../shared/routes';
 import { AuthResponse } from '../auth-response';
 import { AuthService } from '../auth.service';
 
