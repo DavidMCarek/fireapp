@@ -32,7 +32,6 @@ import { RoutingModule } from '../common/routing.module';
     ChatComponent,
     ChannelsComponent,
   ],
-  exports: [ChatComponent],
   providers: [ChannelStateService]
 })
 export class ChatModule { }
