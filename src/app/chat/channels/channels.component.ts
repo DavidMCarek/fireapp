@@ -65,7 +65,8 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   updateChannelNameValidator() {
     this.newChannelName = new FormControl('', [
       Validators.maxLength(20),
-      ChannelNameValidator.channelAlreadyExists(this.publicChannels)
+      ChannelNameValidator.channelAlreadyExists(this.publicChannels),
+      ChannelNameValidator.invalidCharacters()
     ]);
   }
 
@@ -92,6 +93,10 @@ export class ChannelsComponent implements OnInit, OnDestroy {
 
     if (this.newChannelName.hasError('channelAlreadyExists')) {
       return 'A channel with this name already exists';
+    }
+
+    if (this.newChannelName.hasError('invalidCharacters')) {
+      return 'Channel names can\'t contain these characters: # . $ / \\ [ ]';
     }
 
     return '';
