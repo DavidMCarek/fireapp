@@ -33,7 +33,7 @@
     <input matInput placeholder="Filter" [(ngModel)]="filterInput">
   </mat-form-field>
   <div class="channel-list">
-    <div *ngFor="let channel of publicChannels | search: filterInput">
+    <div *ngFor="let channel of publicChannelsDisplay | search: filterInput">
       <a mat-button color="accent" (click)="routeToChannel(channel)">{{ channel }}</a>
     </div>
   </div>

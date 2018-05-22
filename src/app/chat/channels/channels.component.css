@@ -11,7 +11,7 @@ div.channel-list a {
 }
 
 .create-channel mat-form-field {
-    padding: 5px 0px;
+    padding: 5px 0px 12px 0px;
 }
 
 .create-channel button {

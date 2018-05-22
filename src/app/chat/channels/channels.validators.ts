@@ -7,7 +7,7 @@ export class ChannelNameValidator {
         return null;
       }
 
-      return !channelNames.includes(c.value) ? null : {
+      return !channelNames.includes(c.value.toLowerCase()) ? null : {
         channelAlreadyExists: { valid: false }
       };
     };

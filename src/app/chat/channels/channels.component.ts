@@ -20,6 +20,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   publicChannelsRef: AngularFireObject<any>;
   publicChannelsObservable: Observable<any>;
   publicChannels: string[];
+  publicChannelsDisplay: string[] = [];
 
   isNewChannelPublic = true;
   newChannelName: FormControl;
@@ -49,7 +50,8 @@ export class ChannelsComponent implements OnInit, OnDestroy {
         }
 
         this.publicChannels = Object.keys(channels);
-        this.publicChannels.sort((a, b) => a.localeCompare(b));
+        this.publicChannels.forEach(channel => this.publicChannelsDisplay.push(channels[channel].displayName));
+        this.publicChannelsDisplay.sort((a, b) => a.localeCompare(b));
         this.updateChannelNameValidator();
     });
   }
@@ -72,14 +74,14 @@ export class ChannelsComponent implements OnInit, OnDestroy {
     }
 
     if (isPublicChannel) {
-      const channelRef = this.db.object('public-channels/' + channelFormControl.value);
-      channelRef.set(true);
+      const channelRef = this.db.object('public-channels/' + channelFormControl.value.toLowerCase());
+      channelRef.set({ displayName: channelFormControl.value });
     }
   }
 
   routeToChannel(channelName: string) {
     this.channelStateService.setExpansionState(this.expansionState);
-    this.router.navigate([Routes.chat, channelName]);
+    this.router.navigate([Routes.chat, channelName.toLowerCase()]);
   }
 
   getErrorMessage(): string {
