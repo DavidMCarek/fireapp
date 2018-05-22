@@ -12,13 +12,15 @@ import { RoutingModule } from './common/routing.module';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AuthModule } from './auth/auth.module';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,

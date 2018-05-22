@@ -15,7 +15,7 @@
       <input matInput placeholder="Channel Name" [formControl]="newChannelName"/>
       <mat-error *ngIf="newChannelName.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
-    <button mat-raised-button [disabled]="newChannelName.invalid" color="accent" (click)="createChannel(isNewChannelPublic, newChannelName)">
+    <button mat-raised-button [disabled]="newChannelName.invalid || newChannelName.value.length < 1" color="accent" (click)="createChannel(isNewChannelPublic, newChannelName)">
       Create
     </button>
   </form>

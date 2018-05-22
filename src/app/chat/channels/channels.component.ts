@@ -67,6 +67,10 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   }
 
   createChannel(isPublicChannel: boolean, channelFormControl: FormControl): void {
+    if (channelFormControl.value.length < 1) {
+      return;
+    }
+
     if (isPublicChannel) {
       const channelRef = this.db.object('public-channels/' + channelFormControl.value);
       channelRef.set(true);
