@@ -2,7 +2,7 @@
   <div class="channels-container">
     <app-channels></app-channels>
   </div>
-  <div class=messaging-container>
+  <div class="messaging-container" *ngIf="channelSelected">
     <h3 class="channel-header">{{channelName}}</h3>
     <mat-divider></mat-divider>
     <div class="messages-container">
@@ -18,7 +18,7 @@
       </div>
     </div>
     <mat-divider></mat-divider>
-    <div class="message-input-container" *ngIf="channelSelected">
+    <div class="message-input-container">
       <form>
         <mat-form-field>
           <textarea (keyup.enter)="postMessage(messageText.value)" type="text" matInput placeholder="Write a message..." [formControl]="messageText"></textarea>
