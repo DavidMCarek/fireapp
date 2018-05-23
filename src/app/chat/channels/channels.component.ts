@@ -9,6 +9,7 @@ import { ExpansionState } from './channel-state';
 import { ChannelStateService } from './channel-state.service';
 import { ChannelNameValidator } from './channels.validators';
 import { Subject } from 'rxjs/Subject';
+import { ChannelNameEncoder } from './channel-name-encoder';
 
 @Component({
   selector: 'app-channels',
@@ -74,7 +75,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const encodedChannelName = encodeURIComponent(channelFormControl.value);
+    const encodedChannelName = ChannelNameEncoder.encode(channelFormControl.value);
 
     if (isPublicChannel) {
       const channelRef = this.db.object('public-channels/' + encodedChannelName.toLowerCase());
@@ -83,7 +84,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   }
 
   routeToChannel(channelName: string) {
-    const encodedChannelName = encodeURIComponent(channelName);
+    const encodedChannelName = ChannelNameEncoder.encode(channelName);
     this.channelStateService.setExpansionState(this.expansionState);
     this.router.navigate([Routes.chat, encodedChannelName.toLowerCase()]);
   }
