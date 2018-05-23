@@ -3,6 +3,8 @@
     <app-channels></app-channels>
   </div>
   <div class=messaging-container>
+    <h3 class="channel-header">{{channelName}}</h3>
+    <mat-divider></mat-divider>
     <div class="messages-container">
       <div *ngFor="let message of messages">
         <mat-card>

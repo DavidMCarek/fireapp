@@ -10,6 +10,8 @@ import { ChannelStateService } from './channel-state.service';
 import { ChannelNameValidator } from './channels.validators';
 import { Subject } from 'rxjs/Subject';
 import { ChannelNameEncoder } from './channel-name-encoder';
+import { FirebasePaths } from '../../shared/firebase-paths';
+import { Channel } from './channel';
 
 @Component({
   selector: 'app-channels',
@@ -38,7 +40,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.publicChannelsRef = this.db.object('public-channels');
+    this.publicChannelsRef = this.db.object(FirebasePaths.publicChannels);
     this.publicChannelsObservable = this.publicChannelsRef.valueChanges();
     this.updateChannelNameValidator();
     this.expansionState = this.channelStateService.expansionState;
@@ -78,15 +80,15 @@ export class ChannelsComponent implements OnInit, OnDestroy {
     const encodedChannelName = ChannelNameEncoder.encode(channelFormControl.value);
 
     if (isPublicChannel) {
-      const channelRef = this.db.object('public-channels/' + encodedChannelName.toLowerCase());
-      channelRef.set({ displayName: channelFormControl.value });
+      const channelRef = this.db.object(FirebasePaths.publicChannels + '/' + encodedChannelName);
+      channelRef.set(new Channel(channelFormControl.value));
     }
   }
 
   routeToChannel(channelName: string) {
     const encodedChannelName = ChannelNameEncoder.encode(channelName);
     this.channelStateService.setExpansionState(this.expansionState);
-    this.router.navigate([Routes.chat, encodedChannelName.toLowerCase()]);
+    this.router.navigate([Routes.chat, encodedChannelName]);
   }
 
   getErrorMessage(): string {

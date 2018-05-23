@@ -1,4 +1,5 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
+import { ChannelNameEncoder } from './channel-name-encoder';
 
 export class ChannelNameValidator {
   static channelAlreadyExists(channelNames: string[]): ValidatorFn {
@@ -7,7 +8,7 @@ export class ChannelNameValidator {
         return null;
       }
 
-      return !channelNames.includes(c.value.toLowerCase()) ? null : {
+      return !channelNames.includes(ChannelNameEncoder.encode(c.value)) ? null : {
         channelAlreadyExists: { valid: false }
       };
     };

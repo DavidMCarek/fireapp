@@ -9,6 +9,8 @@ import 'rxjs/add/operator/takeUntil';
 
 import { AuthService } from '../auth/auth.service';
 import { Message } from './message';
+import { FirebasePaths } from '../shared/firebase-paths';
+import { Channel } from './channels/channel';
 
 @Component({
   selector: 'app-chat',
@@ -18,6 +20,7 @@ import { Message } from './message';
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   channelSelected = false;
 
+  channelName: string;
   messagesRef: AngularFireList<any>;
   messagesObservable: Observable<Message[]>;
   messages: Message[];
@@ -45,7 +48,14 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
         this.channelSelected = true;
 
-        this.messagesRef = this.db.list('messages/' + params.channel);
+        this.db.object<Channel>(FirebasePaths.publicChannels + '/' + params.channel)
+          .valueChanges()
+          .takeUntil(this.unsubscribe)
+          .subscribe(channel => {
+            this.channelName = channel.displayName;
+          });
+
+        this.messagesRef = this.db.list<Message>(FirebasePaths.messages + '/' + params.channel);
         this.messagesObservable = this.messagesRef.valueChanges();
         this.messages = new Array();
         this.subscribeToMessages();

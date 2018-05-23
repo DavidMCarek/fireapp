@@ -23,6 +23,11 @@
     flex-flow: column;
 }
 
+.messaging-container > .channel-header {
+    background-color: #fff;
+    padding: 15px;
+}
+
 .messages-container {
     flex: 1 1 auto;
     overflow: auto;
