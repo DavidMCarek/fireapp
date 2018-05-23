@@ -12,10 +12,4 @@ export class ChannelNameValidator {
       };
     };
   }
-
-  static invalidCharacters(): ValidatorFn {
-    return (c: FormControl) => {
-      return c.value.match(/[#.\$\/\\\[\]]/g) ? { invalidCharacters: { valid: false }} : null;
-    };
-  }
 }

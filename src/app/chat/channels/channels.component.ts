@@ -65,8 +65,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   updateChannelNameValidator() {
     this.newChannelName = new FormControl('', [
       Validators.maxLength(20),
-      ChannelNameValidator.channelAlreadyExists(this.publicChannels),
-      ChannelNameValidator.invalidCharacters()
+      ChannelNameValidator.channelAlreadyExists(this.publicChannels)
     ]);
   }
 
@@ -75,15 +74,18 @@ export class ChannelsComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const encodedChannelName = encodeURIComponent(channelFormControl.value);
+
     if (isPublicChannel) {
-      const channelRef = this.db.object('public-channels/' + channelFormControl.value.toLowerCase());
+      const channelRef = this.db.object('public-channels/' + encodedChannelName.toLowerCase());
       channelRef.set({ displayName: channelFormControl.value });
     }
   }
 
   routeToChannel(channelName: string) {
+    const encodedChannelName = encodeURIComponent(channelName);
     this.channelStateService.setExpansionState(this.expansionState);
-    this.router.navigate([Routes.chat, channelName.toLowerCase()]);
+    this.router.navigate([Routes.chat, encodedChannelName.toLowerCase()]);
   }
 
   getErrorMessage(): string {
@@ -93,10 +95,6 @@ export class ChannelsComponent implements OnInit, OnDestroy {
 
     if (this.newChannelName.hasError('channelAlreadyExists')) {
       return 'A channel with this name already exists';
-    }
-
-    if (this.newChannelName.hasError('invalidCharacters')) {
-      return 'Channel names can\'t contain these characters: # . $ / \\ [ ]';
     }
 
     return '';
